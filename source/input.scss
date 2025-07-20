@@ -1,0 +1,115 @@
+// Импорт ZUI
+@import "../node_modules/zharikov-ui/source/scss/styles";
+
+$sizes: (
+	large: (
+    border-radius: $zui-12,
+    font: $normal-x4,
+		padding: $zui-8 $zui-16,
+    fsb-br: calc(#{$zui-12} - #{$zui-2}) 
+	),
+	middle: (
+    border-radius: $zui-12,
+    font: $normal-x35,
+		padding: $zui-8 $zui-12,
+    fsb-br: calc(#{$zui-12} - #{$zui-2})
+	),
+	small: (
+    border-radius: $zui-8,
+    font: $normal-x3,
+		padding: $zui-4 $zui-8,
+    fsb-br: calc(#{$zui-8} - #{$zui-2})
+	),
+);
+
+.input {
+  background: $white;
+  border: 2px solid $border;
+  border-radius: $zui-12;
+  box-sizing: border-box;
+  @include transition;
+
+  @each $size-name, $size-map in $sizes {
+		&.#{$size-name} {
+      border-radius: map-get($size-map, border-radius);
+      font: map-get($size-map, font);
+			padding: map-get($size-map, padding);
+		}
+	}
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0px 0px 0px 4px rgba(198, 208, 238, 0.50), 0px 2px 4px 0px rgba(34, 34, 34, 0.12), 0px 0px 1px 0px rgba(0, 0, 0, 0.50);
+  }
+
+  &:not(&:placeholder-shown) {
+    border-color: $border;
+    box-shadow: none;
+  }
+
+  &-file {
+    width: $zui-100p;
+    border: 2px solid $border;
+    box-sizing: border-box;
+    background: $white;
+    position: relative;
+
+    @each $size-name, $size-map in $sizes {
+      &.#{$size-name} {
+        border-radius: map-get($size-map, border-radius);
+        font: map-get($size-map, font);
+        padding: map-get($size-map, padding);
+
+        &::file-selector-button {
+          color: $white;
+          cursor: pointer;
+          background-color: $primary;
+          box-sizing: border-box;
+          overflow: hidden;
+          position: relative;
+          text-decoration: none;
+          flex: 0 0 auto;
+          border: 0;
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          right: -$zui-4;
+          border-radius: map-get($size-map, fsb-br);
+          font: map-get($size-map, font);
+          padding: map-get($size-map, padding);
+          @include transition;
+    
+          &:hover {
+            background-color: $primary-hover;
+          }
+        }
+      }
+    }
+  }
+
+  &-date, &-time {
+    width: $zui-100p;
+    border: 2px solid $border;
+    box-sizing: border-box;
+    background: $white;
+    position: relative;
+
+    @each $size-name, $size-map in $sizes {
+      &.#{$size-name} {
+        border-radius: map-get($size-map, border-radius);
+        font: map-get($size-map, font);
+        padding: map-get($size-map, padding);
+
+        &::-webkit-calendar-picker-indicator {
+          width: $zui-100p;
+          height: $zui-100p;
+          color: $white;
+          background-color: $primary;
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
